@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OP Perspective | Photoshop Perspective Drawing Tool</title>
+  <meta name="description" content="OP Perspective user guide, installation guide, activation guide, and release notes for Photoshop.">
+  <link rel="stylesheet" href="assets/op-perspective.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="OP Perspective">
+      <span class="brand-mark">OP</span>
+      <span class="brand-text">OP Perspective</span>
+    </a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#install" data-i18n="nav.install">安装</a>
+      <a href="#activate" data-i18n="nav.activate">激活</a>
+      <a href="#guide" data-i18n="nav.guide">使用指南</a>
+      <a href="#download" data-i18n="nav.download">下载</a>
+    </nav>
+    <div class="language-switch" aria-label="Language">
+      <button type="button" class="is-active" data-language="zh">中文</button>
+      <button type="button" data-language="en">EN</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Photoshop 透视辅助与空间参考工具</p>
+        <h1>OP Perspective</h1>
+        <p class="hero-lead" data-i18n="hero.lead">
+          在 Photoshop 中创建透视辅助线、鱼眼参考网格、三维 Object 参考结构，并将可见辅助线或 Object 写入 Photoshop 图层。
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#download" data-i18n="hero.download">获取安装包</a>
+          <a class="button" href="#guide" data-i18n="hero.guide">查看使用指南</a>
+        </div>
+      </div>
+      <figure class="hero-visual">
+        <img src="assets/update-panel.png" alt="OP Perspective control panel update dialog preview">
+        <figcaption data-i18n="hero.caption">OP Perspective 控制面板示例</figcaption>
+      </figure>
+    </section>
+
+    <section class="section compact" id="overview">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="overview.eyebrow">功能概览</p>
+        <h2 data-i18n="overview.title">为绘画和设计准备透视参考</h2>
+      </div>
+      <div class="feature-grid">
+        <article>
+          <h3 data-i18n="feature.classic.title">经典透视</h3>
+          <p data-i18n="feature.classic.body">控制 VP_X / VP_Y / VP_Z、地平线、FOV 和 45° 辅助线，适合常规场景透视。</p>
+        </article>
+        <article>
+          <h3 data-i18n="feature.fisheye.title">鱼眼参考</h3>
+          <p data-i18n="feature.fisheye.body">支持等距鱼眼和球极鱼眼，用于广角、曲面空间和夸张镜头参考。</p>
+        </article>
+        <article>
+          <h3 data-i18n="feature.object.title">Object 结构</h3>
+          <p data-i18n="feature.object.body">创建 Quad、Circle、Cube、Cylinder、Sphere、Character，并用移动、旋转、缩放调整空间关系。</p>
+        </article>
+        <article>
+          <h3 data-i18n="feature.layer.title">写入图层</h3>
+          <p data-i18n="feature.layer.body">把当前透视辅助线、选中 Object 或所有可见 Object 写入 Photoshop 透明图层。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split" id="install">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="install.eyebrow">Installation</p>
+        <h2 data-i18n="install.title">安装</h2>
+      </div>
+      <div class="content-card">
+        <ol>
+          <li data-i18n="install.step1">关闭 Photoshop。</li>
+          <li data-i18n="install.step2">运行 OP Perspective 安装程序。</li>
+          <li data-i18n="install.step3">选择目标 Photoshop 的 Plug-ins 文件夹或 Photoshop 安装目录。</li>
+          <li data-i18n="install.step4">安装完成后重新打开 Photoshop。</li>
+          <li data-i18n="install.step5">打开一个 Photoshop 文档，确认 OP Perspective 面板和 Overlay 正常出现。</li>
+        </ol>
+        <p class="note" data-i18n="install.note">
+          如果 Photoshop 启动时关闭或卡在启动画面，先安装或修复 Microsoft Visual C++ 2015-2022 Redistributable x64，然后重启 Windows 再测试。
+        </p>
+      </div>
+      <aside class="fact-card">
+        <h3 data-i18n="install.compat.title">兼容性</h3>
+        <p data-i18n="install.compat.body">安装包按 Photoshop 版本自动选择桥接模块。Photoshop Layer Pixel Writeback 需要 Photoshop 24.4 或更高版本。</p>
+      </aside>
+    </section>
+
+    <section class="section split" id="activate">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="activate.eyebrow">License</p>
+        <h2 data-i18n="activate.title">激活与试用</h2>
+      </div>
+      <div class="content-card">
+        <p data-i18n="activate.body">
+          未激活时，面板只显示邮箱、激活码和 14 天试用入口。激活或开始试用后，完整控制面板会显示。
+        </p>
+        <ol>
+          <li data-i18n="activate.step1">输入购买时使用的邮箱。</li>
+          <li data-i18n="activate.step2">输入激活码，然后点击激活。</li>
+          <li data-i18n="activate.step3">没有激活码时，可以输入邮箱并启动 14 天试用。</li>
+        </ol>
+      </div>
+      <aside class="fact-card">
+        <h3 data-i18n="activate.note.title">注意</h3>
+        <p data-i18n="activate.note.body">激活码不会显示在公开文档里。若需要重置授权或更换设备，请联系 BADBRUSH 支持。</p>
+      </aside>
+    </section>
+
+    <section class="section" id="guide">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="guide.eyebrow">User Guide</p>
+        <h2 data-i18n="guide.title">使用指南</h2>
+      </div>
+      <div class="guide-list">
+        <article>
+          <h3 data-i18n="guide.panel.title">UI 面板</h3>
+          <p data-i18n="guide.panel.body">切换 Classic / Equidistant FishEye / Stereographic FishEye，控制透视线、Object、FOV、旋转视角、地平线和快捷键。</p>
+        </article>
+        <article>
+          <h3 data-i18n="guide.pie.title">OP Pie Menu</h3>
+          <p data-i18n="guide.pie.body">默认使用 Q 打开，用于创建 Object、进入 Edit Mode、切换结构相交线、控制 Object 显示和写入 Photoshop 图层。</p>
+        </article>
+        <article>
+          <h3 data-i18n="guide.object.title">Object 与 Edit Mode</h3>
+          <p data-i18n="guide.object.body">在 Edit Mode 中使用 G / R / S 移动、旋转、缩放，使用 X / Y / Z 约束轴向，使用 Shift+D 复制 Object。</p>
+        </article>
+        <article>
+          <h3 data-i18n="guide.writeback.title">写入 Photoshop 图层</h3>
+          <p data-i18n="guide.writeback.body">透视辅助线、选中 Object、所有可见 Object 都可以写入 Photoshop 透明图层。写入内容按当前 Overlay 可见结果生成。</p>
+        </article>
+        <article>
+          <h3 data-i18n="guide.blender.title">Blender 可选模块</h3>
+          <p data-i18n="guide.blender.body">安装可选 Blender add-on 后，可连接 OP Perspective、同步相机参考，并把 Blender Final Render 发送到 Photoshop 图层。</p>
+        </article>
+        <article>
+          <h3 data-i18n="guide.shortcuts.title">常用快捷键</h3>
+          <p><code>Q</code> OP Pie Menu · <code>G</code> Move · <code>R</code> Rotate · <code>S</code> Scale · <code>Alt+Z</code> X-Ray · <code>Ctrl+Z</code> Undo</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split" id="updates">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="updates.eyebrow">Updates</p>
+        <h2 data-i18n="updates.title">更新</h2>
+      </div>
+      <div class="content-card">
+        <p data-i18n="updates.body">
+          有新版本时，控制面板标题栏会显示“可更新”。点击后可选择自动更新或手动下载来源。更新前请保存 Photoshop 文档。
+        </p>
+        <ul>
+          <li data-i18n="updates.item1">自动更新会下载并校验安装包，然后关闭并重启 Photoshop。</li>
+          <li data-i18n="updates.item2">手动下载可以打开 GitHub Release、BADBRUSH 官网或网盘备用链接。</li>
+          <li data-i18n="updates.item3">更新检查和授权状态彼此独立。</li>
+        </ul>
+      </div>
+      <aside class="fact-card">
+        <h3 data-i18n="updates.status.title">发布状态</h3>
+        <p data-i18n="updates.status.body">正式公开前，下载按钮可以先指向 GitHub Releases 页面；安装包上传后再更新链接。</p>
+      </aside>
+    </section>
+
+    <section class="section" id="download">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="download.eyebrow">Download</p>
+        <h2 data-i18n="download.title">下载与教程</h2>
+      </div>
+      <div class="download-grid">
+        <a class="download-card" href="https://github.com/xbadbrushx/OP-Perspective/releases" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="download.github.label">GitHub Releases</span>
+          <strong data-i18n="download.github.title">安装包下载</strong>
+          <em data-i18n="download.github.note">正式发布后在这里获取最新安装包。</em>
+        </a>
+        <a class="download-card" href="https://www.bilibili.com/video/BV1gQVS6ZErd/" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="download.video.label">Video Tutorial</span>
+          <strong data-i18n="download.video.title">B站视频教程</strong>
+          <em data-i18n="download.video.note">查看安装、面板、Object 和编辑操作演示。</em>
+        </a>
+        <a class="download-card" href="https://badbrush.org/" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="download.badbrush.label">BADBRUSH</span>
+          <strong data-i18n="download.badbrush.title">官方网站</strong>
+          <em data-i18n="download.badbrush.note">产品信息、购买与支持入口。</em>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
+        <h2 data-i18n="faq.title">常见问题</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary data-i18n="faq.panel.q">关闭面板后怎么重新打开？</summary>
+          <p data-i18n="faq.panel.a">按 Ctrl+F12 可以重新打开 OP Perspective 面板。</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.layer.q">写入 Photoshop 图层会修改原图吗？</summary>
+          <p data-i18n="faq.layer.a">不会。写入功能会创建新的透明图层，不会直接覆盖原始图层。</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.ps.q">为什么 Photoshop 启动后自动关闭？</summary>
+          <p data-i18n="faq.ps.a">优先修复 Microsoft Visual C++ 2015-2022 Redistributable x64；如果仍失败，再记录 Windows 事件查看器中的错误模块并联系支持。</p>
+        </details>
+        <details>
+          <summary data-i18n="faq.license.q">试用期多久？</summary>
+          <p data-i18n="faq.license.a">OP Perspective 提供 14 天试用期。试用需要联网并绑定邮箱。</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>OP Perspective · BADBRUSH</p>
+    <p data-i18n="footer.note">此页面是公开用户文档，不包含源代码、授权实现或服务器内部信息。</p>
+  </footer>
+
+  <script src="assets/op-perspective.js"></script>
+</body>
+</html>
