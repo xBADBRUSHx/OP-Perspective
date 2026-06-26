@@ -1,42 +1,30 @@
-# OP Perspective Public Docs
+# OP Perspective Public User Guide
 
-This folder is a docs-only GitHub Pages candidate for:
+This repository publishes the public OP Perspective user guide at:
 
 ```text
 https://xbadbrushx.github.io/OP-Perspective/
 ```
 
-It intentionally contains public user-facing material only:
+`index.html` mirrors the in-product guide from the private development repo:
 
-- product overview
-- installation notes
-- activation and 14-day trial instructions
-- user guide summary
-- update behavior
-- download and tutorial links
-- FAQ
+```text
+ui/control_panel/docs/Documentation_User_Guide.html
+```
 
+Keep that file as the guide source of truth. Do not maintain a separate
+simplified public guide here.
+
+This repository intentionally contains public user-facing documentation only.
 It must not contain source code, private license internals, activation-code
 generation logic, server implementation details, secrets, build artifacts, or
 internal architecture notes.
 
-## Suggested GitHub Pages Setup
+## GitHub Pages
 
-1. Create a public repository named `OP-Perspective` under `xbadbrushx`.
-2. Copy the contents of this folder into the repository root.
-3. Commit to `main`.
-4. In GitHub repository settings, enable Pages from `main` / root.
-5. After GitHub Pages is live, verify:
-   `https://xbadbrushx.github.io/OP-Perspective/`.
+Pages is published from `main` / repository root.
 
-## Release Link TODO
+## Release Link
 
-Before public launch, update the GitHub Releases target after the first
-installer asset is uploaded:
-
-```text
-https://github.com/xbadbrushx/OP-Perspective/releases
-```
-
-The page can stay online before the installer is uploaded, but the release
-card should be treated as a placeholder until the installer exists.
+Installer assets belong in GitHub Releases or BADBRUSH download hosting, not in
+this Pages repository.

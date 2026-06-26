@@ -1,227 +1,945 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OP Perspective | Photoshop Perspective Drawing Tool</title>
-  <meta name="description" content="OP Perspective user guide, installation guide, activation guide, and release notes for Photoshop.">
-  <link rel="stylesheet" href="assets/op-perspective.css">
+  <title>OP Perspective 使用说明</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --panel-2: #f1f5f9;
+      --text: #1f2937;
+      --muted: #5f6b7a;
+      --line: #d9dee8;
+      --accent: #dc2626;
+      --accent-2: #2563eb;
+      --accent-soft: rgba(220, 38, 38, 0.08);
+      --code: #eef2f7;
+      --ctp-red: 255, 77, 77;
+      --ctp-maroon: 230, 69, 83;
+      --ctp-peach: 255, 136, 77;
+      --ctp-yellow: 228, 147, 32;
+      --ctp-green: 54, 179, 116;
+      --ctp-teal: 23, 146, 153;
+      --ctp-sky: 4, 165, 229;
+      --ctp-sapphire: 32, 159, 181;
+      --ctp-blue: 37, 99, 235;
+      --ctp-lavender: 114, 135, 253;
+      --ctp-mauve: 136, 57, 239;
+      --ctp-pink: 214, 64, 159;
+      --ctp-rose: 225, 29, 72;
+      --rainbow-opacity: 1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      line-height: 1.72;
+    }
+
+    a { color: #1d4ed8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      border-right: 1px solid var(--line);
+      background: #ffffff;
+      overflow: auto;
+    }
+
+    nav h1 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .nav-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .nav-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .language-switch {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      padding: 2px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #f1f5f9;
+    }
+
+    .language-switch button {
+      min-width: 40px;
+      min-height: 22px;
+      padding: 0 7px;
+      border: 0;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--muted);
+      font: 12px/1 "Segoe UI", "Microsoft YaHei", sans-serif;
+      cursor: pointer;
+    }
+
+    .language-switch button.is-active {
+      background: #ffffff;
+      color: #111827;
+      font-weight: 700;
+      box-shadow: 0 1px 2px rgba(31, 41, 55, 0.08);
+    }
+
+    nav a {
+      --rainbow-folder-color: var(--ctp-red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 32px;
+      padding: 5px 8px 5px 0;
+      border-radius: 7px;
+      color: rgba(var(--rainbow-folder-color), var(--rainbow-opacity));
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      transition: color 0.4s, background-color 0.2s;
+    }
+
+    nav a:hover { background-color: rgba(var(--rainbow-folder-color), 0.1); text-decoration: none; }
+    nav a::after {
+      content: "⬤";
+      flex: 0 0 auto;
+      margin-left: 4px;
+      color: rgba(var(--rainbow-folder-color), var(--rainbow-opacity));
+      font-size: 10px;
+      line-height: 1;
+      opacity: 0.5;
+      position: relative;
+      top: -0.5px;
+      transition: color 0.4s;
+    }
+
+    nav a:nth-of-type(12n + 1) { --rainbow-folder-color: var(--ctp-red); }
+    nav a:nth-of-type(12n + 2) { --rainbow-folder-color: var(--ctp-maroon); }
+    nav a:nth-of-type(12n + 3) { --rainbow-folder-color: var(--ctp-peach); }
+    nav a:nth-of-type(12n + 4) { --rainbow-folder-color: var(--ctp-yellow); }
+    nav a:nth-of-type(12n + 5) { --rainbow-folder-color: var(--ctp-green); }
+    nav a:nth-of-type(12n + 6) { --rainbow-folder-color: var(--ctp-teal); }
+    nav a:nth-of-type(12n + 7) { --rainbow-folder-color: var(--ctp-sky); }
+    nav a:nth-of-type(12n + 8) { --rainbow-folder-color: var(--ctp-sapphire); }
+    nav a:nth-of-type(12n + 9) { --rainbow-folder-color: var(--ctp-blue); }
+    nav a:nth-of-type(12n + 10) { --rainbow-folder-color: var(--ctp-lavender); }
+    nav a:nth-of-type(12n + 11) { --rainbow-folder-color: var(--ctp-mauve); }
+    nav a:nth-of-type(12n + 12) { --rainbow-folder-color: var(--ctp-rose); }
+
+    main {
+      max-width: 940px;
+      padding: 42px 44px 76px;
+    }
+
+    main > h1 {
+      margin: 0 0 10px;
+      color: #111827;
+      font-size: 34px;
+      line-height: 1.18;
+    }
+
+    h2 {
+      margin: 38px 0 14px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      color: #111827;
+      font-size: 24px;
+      line-height: 1.32;
+    }
+
+    h3 {
+      margin: 26px 0 10px;
+      color: #172033;
+      font-size: 18px;
+      line-height: 1.38;
+    }
+
+    p { margin: 10px 0; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+
+    .field-label {
+      margin: 16px 0 4px;
+      color: #111827;
+      font-weight: 700;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--code);
+      color: #273449;
+      font-family: Consolas, "SFMono-Regular", monospace;
+      font-size: 0.95em;
+    }
+
+    .media-card {
+      margin: 16px 0 18px;
+      padding: 0;
+      border: 1px dashed #9aa7b8;
+      border-radius: 8px;
+      background: var(--panel-2);
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .media-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 190px;
+      padding: 24px 18px;
+    }
+
+    .media-link {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: min(100%, 360px);
+      padding: 18px 22px;
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      border-radius: 8px;
+      background: #ffffff;
+      color: #1d4ed8;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(31, 41, 55, 0.08);
+    }
+
+    .media-link:hover {
+      border-color: rgba(37, 99, 235, 0.45);
+      text-decoration: none;
+    }
+
+    .media-link strong {
+      color: #111827;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .media-link span {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .table-wrap {
+      margin: 16px 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #111827;
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .footer-note {
+      margin-top: 44px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px) {
+      .layout { display: block; }
+      nav {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      main { padding: 28px 22px 56px; }
+      main > h1 { font-size: 28px; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="OP Perspective">
-      <span class="brand-mark">OP</span>
-      <span class="brand-text">OP Perspective</span>
-    </a>
-    <nav class="top-nav" aria-label="Primary">
-      <a href="#install" data-i18n="nav.install">安装</a>
-      <a href="#activate" data-i18n="nav.activate">激活</a>
-      <a href="#guide" data-i18n="nav.guide">使用指南</a>
-      <a href="#download" data-i18n="nav.download">下载</a>
-    </nav>
-    <div class="language-switch" aria-label="Language">
-      <button type="button" class="is-active" data-language="zh">中文</button>
-      <button type="button" data-language="en">EN</button>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow" data-i18n="hero.eyebrow">Photoshop 透视辅助与空间参考工具</p>
-        <h1>OP Perspective</h1>
-        <p class="hero-lead" data-i18n="hero.lead">
-          在 Photoshop 中创建透视辅助线、鱼眼参考网格、三维 Object 参考结构，并将可见辅助线或 Object 写入 Photoshop 图层。
-        </p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#download" data-i18n="hero.download">获取安装包</a>
-          <a class="button" href="#guide" data-i18n="hero.guide">查看使用指南</a>
+  <div class="layout">
+    <nav>
+      <h1>OP Perspective</h1>
+      <div class="nav-meta-row">
+        <p class="nav-subtitle">使用说明书</p>
+        <div class="language-switch" aria-label="Language">
+          <button type="button" data-language-choice="zh" class="is-active">中文</button>
+          <button type="button" data-language-choice="en">English</button>
         </div>
       </div>
-      <figure class="hero-visual">
-        <img src="assets/update-panel.png" alt="OP Perspective control panel update dialog preview">
-        <figcaption data-i18n="hero.caption">OP Perspective 控制面板示例</figcaption>
+      <a href="#00-installation-安装">00 Installation_安装</a>
+      <a href="#01-ui-panel-ui面板">01 UI Panel_UI面板</a>
+      <a href="#02-object-创建基础几何型">02 Object_创建基础几何型</a>
+      <a href="#03-编辑模式">03 编辑模式</a>
+      <a href="#04-transform-移动-旋转-缩放">04 Transform_移动、旋转、缩放</a>
+      <a href="#05-基础几何型">05 基础几何型</a>
+      <a href="#06-array-spin-mirror">06 阵列 / 旋绕 / 镜像</a>
+      <a href="#07-intersections-xray">07 结构相交线与X-Ray穿透显示</a>
+      <a href="#08-pivot-设置操纵器锚点">08 Pivot_设置操纵器锚点</a>
+      <a href="#09-快捷键速查">09 快捷键速查</a>
+    </nav>
+
+    <main>
+      <h1>OP Perspective 使用说明</h1>
+      <h2 id="00-installation-安装">00 Installation_安装</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/" target="_blank" rel="noopener noreferrer">
+            <strong>Installation_安装</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
       </figure>
-    </section>
+      <p class="field-label">准备</p>
+      <ul>
+        <li>关闭 Photoshop。</li>
+        <li>准备好 OP Perspective 安装包或插件文件。</li>
+      </ul>
+      <p class="field-label">操作</p>
+      <ol>
+        <li>运行 OP Perspective 安装程序。</li>
+        <li>安装位置选择 Photoshop 的 <code>Plug-ins</code> 文件夹。</li>
+        <li>等待安装完成。</li>
+        <li>重新打开 Photoshop。</li>
+        <li>打开一个 Photoshop 文档。</li>
+        <li>此时应看到 OP插件面板 一同显示。</li>
+      </ol>
+      <p class="field-label">注意</p>
+      <ul>
+        <li>安装前需要关闭 Photoshop，安装完成后再重新打开 Photoshop。</li>
+        <li>如果启动 Photoshop 后没有出现插件面板，按 <code>Ctrl+F12</code> 也无法调出插件面板，请重新安装或联系作者。</li>
+      </ul>
+      <p class="field-label">常见问题排查</p>
+      <ul>
+        <li>如果安装插件后 Photoshop 停在启动画面或自动关闭，先安装或修复 Microsoft Visual C++ 2015-2022 Redistributable x64，然后重启电脑再打开 Photoshop。</li>
+        <li>官方下载地址：<a href="https://aka.ms/vc14/vc_redist.x64.exe" target="_blank" rel="noopener noreferrer">vc_redist.x64.exe</a>。</li>
+        <li>如果 Windows 事件查看器里显示这些错误模块：<code>MSVCP140.dll / VCRUNTIME140.dll / VCRUNTIME140_1.dll</code>，通常是系统缺少或需要修复 Visual C++ 运行库。</li>
+        <li>如果修复运行库后仍然无法启动，请记录事件查看器中的错误模块名称、异常代码和错误模块路径后联系作者。</li>
+      </ul>
+      <h2 id="01-ui-panel-ui面板">01 UI Panel_UI面板</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=2" target="_blank" rel="noopener noreferrer">
+            <strong>Panel_UI面板</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <p>启动 Photoshop 并打开文档后，OP插件面板会一同显示。</p>
+      <p class="field-label">面板区域</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>区域</th><th>用途</th><th>注意</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>顶部按钮</td>
+              <td>打开使用说明、切换中英文、开启或关闭 Overlay、关闭面板。</td>
+              <td>面板被关闭后，可以按 <code>Ctrl+F12</code> 重新打开。</td>
+            </tr>
+            <tr>
+              <td>Projection Mode</td>
+              <td>切换 Classic、Equidistant、Stereographic。</td>
+              <td>切换投影模式不会删除或重建 Object；鱼眼模式下边缘变形更明显，这是正常现象。</td>
+            </tr>
+            <tr>
+              <td>Camera Match</td>
+              <td>根据画面透视调整 Classic 视图。</td>
+              <td>用于匹配画面中的透视趋势。</td>
+            </tr>
+            <tr>
+              <td>Perspective Lines</td>
+              <td>控制透视辅助线显示和透明度。</td>
+              <td>只影响辅助线显示。</td>
+            </tr>
+            <tr>
+              <td>Scene Object</td>
+              <td>控制透视对象的显示和透明度。</td>
+              <td>不会直接修改 Photoshop 图层。</td>
+            </tr>
+            <tr>
+              <td>Curvilinear Grid</td>
+              <td>控制鱼眼模式下的曲线网格。</td>
+              <td>切换到鱼眼模式后使用。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="field-label">注意</p>
+      <ul>
+        <li>面板负责显示和视图控制，不会直接修改 Photoshop 图层。</li>
+        <li>如果面板被关闭，可以按 <code>Ctrl+F12</code> 重新打开。</li>
+      </ul>
+      <h2 id="02-object-创建基础几何型">02 Object_创建基础几何型</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=3" target="_blank" rel="noopener noreferrer">
+            <strong>Object_创建基础几何型</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <p>按面板当前 OP 饼菜单快捷键（默认 Q）调出 OP 饼菜单。</p>
+      <p class="field-label">操作</p>
+      <ul>
+        <li>未选中 Object 时，选择基础几何型会新建 Object。</li>
+        <li>已选中 Object 时，选择基础几何型会切换当前 Object 的 Mesh。</li>
+        <li>已选中 Object 时，按住 <code>Ctrl</code> 再选择基础几何型，会新建一个 Object。</li>
+      </ul>
+      <p class="field-label">复制 Object</p>
+      <p>在 Edit Mode 中按 <code>Shift+D</code> 可以复制当前选中的 Object。复制后会直接进入移动状态，移动到合适位置后左键或 <code>Enter</code> 确认。</p>
+      <h2 id="03-编辑模式">03 编辑模式</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=4" target="_blank" rel="noopener noreferrer">
+            <strong>EditMode_编辑模式</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <p>按面板当前 OP 饼菜单快捷键（默认 Q），选择下方的 <code>Edit Mode</code> / <code>编辑模式</code>。</p>
+      <p class="field-label">操作</p>
+      <ul>
+        <li>进入编辑模式后，光标会改变。</li>
+        <li>进入编辑模式后，Photoshop 快捷键会被屏蔽，OP插件快捷键会生效。</li>
+        <li>按 <code>X</code> 可以打开重置和删除菜单。</li>
+        <li>按 <code>Ctrl+Z</code> 撤销，按 <code>Ctrl+Shift+Z</code> 重做。</li>
+        <li>按住 <code>Ctrl</code> 选择 <code>Edit Mode</code>，会重置整个透视场景。</li>
+        <li>点击空白区域、按 <code>Esc</code> 或右键退出编辑模式。</li>
+      </ul>
+      <p class="field-label">注意</p>
+      <ul>
+        <li>重置或删除只影响插件的透视对象，不会删除 Photoshop 图层。</li>
+      </ul>
+      <h2 id="04-transform-移动-旋转-缩放">04 Transform_移动、旋转、缩放</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=5" target="_blank" rel="noopener noreferrer">
+            <strong>Transform_移动、旋转、缩放</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <ul>
+        <li>选中 Object。</li>
+        <li>在 Edit Mode 中按 <code>G</code> / <code>S</code> / <code>R</code>。</li>
+        <li>也可以直接拖动 OP_xCursor 或 OP_xRotateRing。</li>
+      </ul>
+      <p class="field-label">通用命令</p>
+      <ul>
+        <li>移动鼠标或输入数值进行调整。</li>
+        <li>左键或 <code>Enter</code> 确认，右键或 <code>Esc</code> 取消。</li>
+        <li>按 <code>X</code> / <code>Y</code> / <code>Z</code> 限制到对应轴；连续按两次同一个轴键，会切换到 Object 的局部坐标轴。</li>
+        <li>按 <code>Shift+X/Y/Z</code> 排除对应轴，在平面内移动。</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>命令</th><th>快捷键 / 控制器</th><th>用途</th><th>重置</th><th>注意</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>移动</td>
+              <td><code>G</code> / OP_xCursor</td>
+              <td>调整 Object 位置。</td>
+              <td><code>Alt+G</code></td>
+              <td>只改变位置，不改变 Mesh 类型。</td>
+            </tr>
+            <tr>
+              <td>缩放 / 调整尺寸</td>
+              <td><code>S</code></td>
+              <td>调整 Object 大小。</td>
+              <td><code>Alt+S</code></td>
+              <td>Circle、Cylinder、Sphere 通常表现为半径变化；尺寸不会被压到 0。</td>
+            </tr>
+            <tr>
+              <td>旋转</td>
+              <td><code>R</code> / OP_xRotateRing</td>
+              <td>调整 Object 方向和角度。</td>
+              <td><code>Alt+R</code></td>
+              <td>轴向约束同样适用于旋转。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="05-基础几何型">05 基础几何型</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=6" target="_blank" rel="noopener noreferrer">
+            <strong>Mesh_基础几何型</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <p>按面板当前 OP 饼菜单快捷键（默认 Q）打开菜单，在上方 Mesh toolbar 选择基础几何型。</p>
+      <p class="field-label">通用命令</p>
+      <ul>
+        <li>选中 Object 后，可以使用移动、缩放、旋转调整位置、大小和方向。</li>
+        <li>需要切换几何型时，选中 Object 后在 Mesh toolbar 重新选择。</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>几何型</th><th>点</th><th>边</th><th>面</th><th>功能菜单</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>方形（Quad）</td>
+              <td>拖动角点调整形状。</td>
+              <td>拖动边缘调整形状。</td>
+              <td>没有独立面中心控制点。</td>
+              <td>长按边缘打开；支持 Division Lines、Grid Subdivision、Inset / Outset、Rounded Corners。</td>
+            </tr>
+            <tr>
+              <td>圆形（Circle）</td>
+              <td>拖动 U / V 轴控制点调整胶囊形。</td>
+              <td>拖动圆环调整半径。</td>
+              <td>没有独立面中心控制点。</td>
+              <td>支持 Division Lines、Grid Subdivision、Inset / Outset。</td>
+            </tr>
+            <tr>
+              <td>方块（Cube）</td>
+              <td>拖动顶点调整体块角点。</td>
+              <td>拖动边调整体块。</td>
+              <td>拖动面中心调整体块。</td>
+              <td>支持 Division Lines、Grid Subdivision、Rounded Corners；<code>Shift</code> 规则步进，<code>Alt</code> 对称调整。</td>
+            </tr>
+            <tr>
+              <td>圆柱（Cylinder）</td>
+              <td>没有独立点控制。</td>
+              <td>拖动圆形边缘调整半径。</td>
+              <td>拖动顶部或底部中心调整高度。</td>
+              <td>根据当前可用边缘功能显示。</td>
+            </tr>
+            <tr>
+              <td>球体（Sphere）</td>
+              <td>没有独立点控制。</td>
+              <td>拖动外轮廓调整半径。</td>
+              <td>没有独立面中心控制点。</td>
+              <td>没有基础编辑功能菜单。</td>
+            </tr>
+            <tr>
+              <td>基础人物（Character）</td>
+              <td>不能编辑。</td>
+              <td>不能编辑。</td>
+              <td>不能编辑。</td>
+              <td>用于人物比例和空间参考。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="06-array-spin-mirror">06 阵列 / 旋绕 / 镜像</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=7" target="_blank" rel="noopener noreferrer">
+            <strong>阵列、旋绕、镜像</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <p>选中 Object，进入 Edit Mode，按面板当前 OP 饼菜单快捷键（默认 Q），在右侧功能区选择 Array / Spin / Mirror。</p>
+      <p class="field-label">通用行为</p>
+      <ul>
+        <li>Array、Spin、Mirror 是显示参考，不会生成新的 Photoshop 图层。</li>
+        <li>这三个功能一次只显示一种。</li>
+        <li>支持 Quad、Circle、Cube、Cylinder、Sphere、Character。</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>功能</th><th>显示内容</th><th>可调整项</th><th>适合用途</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Array（阵列）</td>
+              <td>线性阵列重复参考。</td>
+              <td>方向、终点、数量。</td>
+              <td>等距排列或连续重复结构。</td>
+            </tr>
+            <tr>
+              <td>Spin（旋绕）</td>
+              <td>绕中心旋转重复参考。</td>
+              <td>中心、方向、角度、数量。</td>
+              <td>轮辐、花纹、放射结构。</td>
+            </tr>
+            <tr>
+              <td>Mirror（镜像）</td>
+              <td>镜像参考。</td>
+              <td>镜像中心和方向。</td>
+              <td>左右、上下或斜向对称结构。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="07-intersections-xray">07 结构相交线与X-Ray穿透显示</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=8" target="_blank" rel="noopener noreferrer">
+            <strong>结构相交线与X-Ray穿透显示</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <p class="field-label">入口</p>
+      <ul>
+        <li>Structure Intersections：从 OP 饼菜单左侧 Slot 切换；关闭时仍显示未遮挡的穿插相交线，开启后补充被遮挡的穿插结构片段。</li>
+        <li>X-Ray：按 <code>Alt+Z</code> 切换隐藏线显示。</li>
+      </ul>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>功能</th><th>用途</th><th>操作</th><th>注意</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Object Intersections</td>
+              <td>默认显示未遮挡的穿插相交线；Structure Intersections 只补充被遮挡的穿插结构片段。</td>
+              <td>创建两个或更多 Object，调整它们的位置，让它们产生穿插；需要查看被遮挡穿插部分时，打开 OP 饼菜单并切换左侧 Structure Intersections Slot。</td>
+              <td>结构相交线只是显示参考，不能选中或拖动；补充片段复用普通 MeshWire 样式，被遮挡部分以 50% 透明度显示。</td>
+            </tr>
+            <tr>
+              <td>X-Ray / 隐藏线</td>
+              <td>控制被遮挡线条是否显示。</td>
+              <td>让 Photoshop 或插件编辑状态处于当前输入状态，按 <code>Alt+Z</code> 切换。</td>
+              <td>默认开启；菜单、控制器、Cursor 和 Pivot 不受 X-Ray 关闭影响。Structure Intersections 是 OP 饼菜单显示开关。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="08-pivot-设置操纵器锚点">08 Pivot_设置操纵器锚点</h2>
+      <figure class="media-card">
+        <div class="media-frame">
+          <a class="media-link" href="https://www.bilibili.com/video/BV1gQVS6ZErd/?p=9" target="_blank" rel="noopener noreferrer">
+            <strong>Pivot_设置操纵器锚点</strong>
+            <span>在 B站观看演示视频</span>
+          </a>
+        </div>
+      </figure>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>功能</th><th>入口</th><th>用途</th><th>注意</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Pivot</td>
+              <td>在支持的控制点、边或 Object cursor 上按鼠标中键。</td>
+              <td>设置临时参考点，用于某些创建和变换操作。</td>
+              <td>Character 没有 Mesh 编辑用的 Pivot 目标。</td>
+            </tr>
+            <tr>
+              <td>Array / Spin / Mirror 中心</td>
+              <td>在支持的控制点、边或 Object cursor 上按 <code>Ctrl+鼠标中键</code>。</td>
+              <td>给 Array、Spin、Mirror 设置参考中心。</td>
+              <td>影响 Array、Spin、Mirror 的中心位置。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="09-快捷键速查">09 快捷键速查</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>快捷键</th><th>功能</th></tr></thead>
+          <tbody>
+            <tr><td>OP 饼菜单快捷键（默认 Q，可在面板修改）</td><td>打开创建 / 功能菜单</td></tr>
+            <tr><td><code>X</code></td><td>Edit Mode 中打开重置和删除菜单</td></tr>
+            <tr><td><code>G</code></td><td>移动</td></tr>
+            <tr><td><code>S</code></td><td>缩放 / 调整尺寸</td></tr>
+            <tr><td><code>R</code></td><td>旋转</td></tr>
+            <tr><td><code>X</code> / <code>Y</code> / <code>Z</code></td><td>轴向约束</td></tr>
+            <tr><td><code>Shift+X/Y/Z</code></td><td>平面约束</td></tr>
+            <tr><td><code>Shift+D</code></td><td>复制并移动</td></tr>
+            <tr><td><code>鼠标中键</code></td><td>设置 Pivot 临时参考点</td></tr>
+            <tr><td><code>Ctrl+鼠标中键</code></td><td>设置 Array / Spin / Mirror 的操纵器 Pivot</td></tr>
+            <tr><td><code>Alt+Z</code></td><td>X-Ray 显示切换</td></tr>
+            <tr><td><code>Alt+G</code></td><td>重置位置</td></tr>
+            <tr><td><code>Alt+S</code></td><td>重置尺寸</td></tr>
+            <tr><td><code>Alt+R</code></td><td>重置旋转</td></tr>
+            <tr><td><code>Ctrl+Z</code></td><td>插件编辑状态下撤销</td></tr>
+            <tr><td><code>Ctrl+Shift+Z</code></td><td>插件编辑状态下重做</td></tr>
+            <tr><td><code>Enter</code> / 左键</td><td>确认</td></tr>
+            <tr><td><code>Esc</code> / 右键</td><td>取消</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="footer-note">Last updated: 2026-06-07</p>
+    </main>
+  </div>
+  <script>
+    (() => {
+      const translations = {
+        "OP Perspective 使用说明": "OP Perspective User Guide",
+        "使用说明书": "User Guide",
+        "中文": "中文",
+        "English": "English",
+        "00 Installation_安装": "00 Installation",
+        "01 UI Panel_UI面板": "01 UI Panel",
+        "02 Object_创建基础几何型": "02 Object_Create Basic Geometry",
+        "03 编辑模式": "03 Edit Mode",
+        "04 Transform_移动、旋转、缩放": "04 Transform_Move, Rotate, Scale",
+        "05 基础几何型": "05 Basic Geometry",
+        "06 阵列 / 旋绕 / 镜像": "06 Array / Spin / Mirror",
+        "07 结构相交线与X-Ray穿透显示": "07 Structural Intersections and X-Ray Display",
+        "08 Pivot_设置操纵器锚点": "08 Pivot_Set Manipulator Anchor",
+        "09 快捷键速查": "09 Shortcut Reference",
+        "入口": "Entry",
+        "操作": "Operation",
+        "注意": "Notes",
+        "常见问题排查": "Troubleshooting",
+        "如果安装插件后 Photoshop 停在启动画面或自动关闭，先安装或修复 Microsoft Visual C++ 2015-2022 Redistributable x64，然后重启电脑再打开 Photoshop。": "If Photoshop stays on the splash screen or closes automatically after installing the plugin, install or repair Microsoft Visual C++ 2015-2022 Redistributable x64 first, restart the computer, then open Photoshop again.",
+        "官方下载地址：": "Official download: ",
+        "如果 Windows 事件查看器里显示这些错误模块：": "If Windows Event Viewer shows one of these faulting modules: ",
+        "，通常是系统缺少或需要修复 Visual C++ 运行库。": ", the system usually lacks or needs to repair the Visual C++ runtime.",
+        "如果修复运行库后仍然无法启动，请记录事件查看器中的错误模块名称、异常代码和错误模块路径后联系作者。": "If Photoshop still cannot start after repairing the runtime, record the faulting module name, exception code, and faulting module path from Event Viewer, then contact the author.",
+        "常用操作": "Common Actions",
+        "通用命令": "Common Commands",
+        "命令": "Command",
+        "快捷键 / 控制器": "Shortcut / Controller",
+        "用途": "Use",
+        "重置": "Reset",
+        "面板区域": "Panel Areas",
+        "区域": "Area",
+        "顶部按钮": "Top Buttons",
+        "打开使用说明、切换中英文、开启或关闭 Overlay、关闭面板。": "Open the guide, switch language, turn Overlay on or off, or close the panel.",
+        "面板被关闭后，可以按": "After the panel is closed, press",
+        "重新打开。": "to reopen it.",
+        "切换 Classic、Equidistant、Stereographic。": "Switch between Classic, Equidistant, and Stereographic.",
+        "切换投影模式不会删除或重建 Object；鱼眼模式下边缘变形更明显，这是正常现象。": "Changing projection mode does not delete or rebuild Objects; stronger edge distortion in fisheye modes is normal.",
+        "根据画面透视调整 Classic 视图。": "Adjust the Classic view to match the image perspective.",
+        "用于匹配画面中的透视趋势。": "Use it to match the perspective direction in the image.",
+        "控制透视辅助线显示和透明度。": "Control perspective guide visibility and opacity.",
+        "只影响辅助线显示。": "Only affects guide display.",
+        "控制透视对象的显示和透明度。": "Control perspective object visibility and opacity.",
+        "不会直接修改 Photoshop 图层。": "Does not directly modify Photoshop layers.",
+        "控制鱼眼模式下的曲线网格。": "Control the curvilinear grid in fisheye modes.",
+        "切换到鱼眼模式后使用。": "Use it after switching to a fisheye mode.",
+        "启动 Photoshop 并打开文档后，OP插件面板会一同显示。": "After starting Photoshop and opening a document, the OP panel appears with it.",
+        "面板负责显示和视图控制，不会直接修改 Photoshop 图层。": "The panel controls display and view settings; it does not directly modify Photoshop layers.",
+        "如果面板被关闭，可以按": "If the panel is closed, press",
+        "复制 Object": "Duplicate Object",
+        "可以复制当前选中的 Object。复制后会直接进入移动状态，移动到合适位置后左键或": "to duplicate the selected Object. After duplicating, it enters move state directly; move it into place, then left-click or press",
+        "选中 Object。": "Select the Object.",
+        "在 Edit Mode 中按": "In Edit Mode, press",
+        "也可以直接拖动 OP_xCursor 或 OP_xRotateRing。": "You can also drag OP_xCursor or OP_xRotateRing directly.",
+        "移动鼠标或输入数值进行调整。": "Move the mouse or enter a value to adjust.",
+        "左键或": "Left-click or",
+        "确认。": "to confirm.",
+        "确认，右键或": "to confirm; right-click or",
+        "取消。": "to cancel.",
+        "限制到对应轴；连续按两次同一个轴键，会切换到 Object 的局部坐标轴。": "to constrain to that axis; press the same axis key twice to switch to the Object's local axis.",
+        "排除对应轴，在平面内移动。": "to exclude that axis and move within the plane.",
+        "移动": "Move",
+        "缩放 / 调整尺寸": "Scale / Adjust Size",
+        "旋转": "Rotate",
+        "调整 Object 位置。": "Adjust the Object position.",
+        "只改变位置，不改变 Mesh 类型。": "Changes only position; does not change the Mesh type.",
+        "调整 Object 大小。": "Adjust the Object size.",
+        "Circle、Cylinder、Sphere 通常表现为半径变化；尺寸不会被压到 0。": "Circle, Cylinder, and Sphere usually change by radius; size will not be reduced to 0.",
+        "调整 Object 方向和角度。": "Adjust the Object direction and angle.",
+        "轴向约束同样适用于旋转。": "Axis constraints also apply to rotation.",
+        "按": "Press",
+        "打开菜单，在上方 Mesh toolbar 选择基础几何型。": "to open the menu, then choose a basic geometry from the upper Mesh toolbar.",
+        "选中 Object 后，可以使用移动、缩放、旋转调整位置、大小和方向。": "After selecting an Object, use move, scale, and rotate to adjust its position, size, and direction.",
+        "需要切换几何型时，选中 Object 后在 Mesh toolbar 重新选择。": "To switch geometry, select the Object and choose another type from the Mesh toolbar.",
+        "几何型": "Geometry",
+        "点": "Points",
+        "边": "Edges",
+        "面": "Faces",
+        "功能菜单": "Feature Menu",
+        "方形（Quad）": "Quad",
+        "拖动角点调整形状。": "Drag corner points to adjust the shape.",
+        "拖动边缘调整形状。": "Drag edges to adjust the shape.",
+        "没有独立面中心控制点。": "No separate face-center handle.",
+        "长按边缘打开；支持 Division Lines、Grid Subdivision、Inset / Outset、Rounded Corners。": "Long-press an edge to open it; supports Division Lines, Grid Subdivision, Inset / Outset, and Rounded Corners.",
+        "圆形（Circle）": "Circle",
+        "拖动 U / V 轴控制点调整胶囊形。": "Drag U / V axis handles to adjust the capsule shape.",
+        "拖动圆环调整半径。": "Drag the ring to adjust radius.",
+        "支持 Division Lines、Grid Subdivision、Inset / Outset。": "Supports Division Lines, Grid Subdivision, and Inset / Outset.",
+        "方块（Cube）": "Cube",
+        "拖动顶点调整体块角点。": "Drag vertices to adjust volume corners.",
+        "拖动边调整体块。": "Drag edges to adjust the volume.",
+        "拖动面中心调整体块。": "Drag face centers to adjust the volume.",
+        "支持 Division Lines、Grid Subdivision、Rounded Corners；": "Supports Division Lines, Grid Subdivision, and Rounded Corners;",
+        "规则步进，": " for stepped adjustment,",
+        "对称调整。": " for symmetric adjustment.",
+        "圆柱（Cylinder）": "Cylinder",
+        "没有独立点控制。": "No separate point controls.",
+        "拖动圆形边缘调整半径。": "Drag the circular edge to adjust radius.",
+        "拖动顶部或底部中心调整高度。": "Drag the top or bottom center to adjust height.",
+        "根据当前可用边缘功能显示。": "Shows the currently available edge features.",
+        "球体（Sphere）": "Sphere",
+        "拖动外轮廓调整半径；没有面中心控制点。": "Drag the outline to adjust radius; there are no face-center handles.",
+        "拖动外轮廓调整半径。": "Drag the outline to adjust radius.",
+        "没有基础编辑功能菜单。": "No basic edit feature menu.",
+        "基础人物（Character）": "Character",
+        "不能编辑。": "Not editable.",
+        "用于人物比例和空间参考。": "Used for human proportion and spatial reference.",
+        "选中 Object，进入 Edit Mode，按": "Select the Object, enter Edit Mode, then press",
+        "，在右侧功能区选择 Array / Spin / Mirror。": "and choose Array / Spin / Mirror from the right feature area.",
+        "通用行为": "Common Behavior",
+        "Array、Spin、Mirror 是显示参考，不会生成新的 Photoshop 图层。": "Array, Spin, and Mirror are display references; they do not create Photoshop layers.",
+        "这三个功能一次只显示一种。": "Only one of these three features is shown at a time.",
+        "支持 Quad、Circle、Cube、Cylinder、Sphere、Character。": "Supports Quad, Circle, Cube, Cylinder, Sphere, and Character.",
+        "功能": "Feature",
+        "显示内容": "Display",
+        "可调整项": "Adjustable Items",
+        "适合用途": "Best For",
+        "Array（阵列）": "Array",
+        "Spin（旋绕）": "Spin",
+        "Mirror（镜像）": "Mirror",
+        "镜像参考。": "Mirror reference.",
+        "镜像中心和方向。": "Mirror center and direction.",
+        "左右、上下或斜向对称结构。": "Left-right, up-down, or diagonal symmetry.",
+        "绕中心旋转重复参考。": "Repeated reference around a center.",
+        "中心、方向、角度、数量。": "Center, direction, angle, and count.",
+        "轮辐、花纹、放射结构。": "Spokes, patterns, and radial structures.",
+        "线性阵列重复参考。": "Linear array repeat reference.",
+        "方向、终点、数量。": "Direction, endpoint, and count.",
+        "等距排列或连续重复结构。": "Even spacing or continuous repeated structures.",
+        "X-Ray / 隐藏线": "X-Ray / Hidden Lines",
+        "结构相交线与X-Ray穿透显示": "Structural Intersections and X-Ray Display",
+        "默认显示未遮挡的穿插相交线；Structure Intersections 只补充被遮挡的穿插结构片段。": "Uncovered intersection lines are shown by default; Structure Intersections only supplements covered intersection fragments.",
+        "按面板当前 OP 饼菜单快捷键（默认 Q）调出 OP 饼菜单。": "Press the current OP Pie Menu shortcut in the panel (Q by default) to open the OP Pie Menu.",
+        "按面板当前 OP 饼菜单快捷键（默认 Q），选择下方的": "Press the current OP Pie Menu shortcut in the panel (Q by default), then choose",
+        "按面板当前 OP 饼菜单快捷键（默认 Q）打开菜单，在上方 Mesh toolbar 选择基础几何型。": "Press the current OP Pie Menu shortcut in the panel (Q by default), then choose a basic geometry from the top Mesh toolbar.",
+        "选中 Object，进入 Edit Mode，按面板当前 OP 饼菜单快捷键（默认 Q），在右侧功能区选择 Array / Spin / Mirror。": "Select the Object, enter Edit Mode, press the current OP Pie Menu shortcut in the panel (Q by default), then choose Array / Spin / Mirror from the right feature area.",
+        "OP 饼菜单快捷键（默认 Q，可在面板修改）": "OP Pie Menu shortcut (Q by default, editable in the panel)",
+        "Structure Intersections：从 OP 饼菜单左侧 Slot 切换；关闭时仍显示未遮挡的穿插相交线，开启后补充被遮挡的穿插结构片段。": "Structure Intersections: toggle from the left slot in OP Pie Menu; when off, uncovered intersection lines still show, and when on it supplements covered intersection fragments.",
+        "X-Ray：按": "X-Ray: press",
+        "切换隐藏线显示。": "to toggle hidden-line display.",
+        "创建两个或更多 Object，调整它们的位置，让它们产生穿插；需要查看被遮挡穿插部分时，打开 OP 饼菜单并切换左侧 Structure Intersections Slot。": "Create two or more Objects and move them until they overlap; open OP Pie Menu and toggle the left Structure Intersections slot when covered intersection fragments are needed.",
+        "结构相交线只是显示参考，不能选中或拖动；补充片段复用普通 MeshWire 样式，被遮挡部分以 50% 透明度显示。": "Structure intersection lines are display references only; they cannot be selected or dragged. Supplemental fragments reuse the normal MeshWire style, and covered portions render at 50% alpha.",
+        "控制被遮挡线条是否显示。": "Control whether hidden lines are visible.",
+        "让 Photoshop 或插件编辑状态处于当前输入状态，按": "Make Photoshop or the plugin edit state the current input target, then press",
+        "切换。": "to toggle.",
+        "默认开启；菜单、控制器、Cursor 和 Pivot 不受 X-Ray 关闭影响。Structure Intersections 是 OP 饼菜单显示开关。": "Enabled by default; menus, controllers, Cursor, and Pivot are not affected when X-Ray is off. Structure Intersections is an OP Pie Menu display toggle.",
+        "设置临时参考点，用于某些创建和变换操作。": "Set a temporary reference point for some creation and transform operations.",
+        "在支持的控制点、边或 Object cursor 上按鼠标中键。": "Middle-click a supported control point, edge, or Object cursor.",
+        "Pivot 是临时参考点。": "Pivot is a temporary reference point.",
+        "Character 没有 Mesh 编辑用的 Pivot 目标。": "Character has no Mesh-edit Pivot target.",
+        "Array / Spin / Mirror 中心": "Array / Spin / Mirror Center",
+        "给 Array、Spin、Mirror 设置参考中心。": "Set the reference center for Array, Spin, and Mirror.",
+        "在支持的控制点、边或 Object cursor 上按": "Press",
+        "Ctrl+鼠标中键": "Ctrl+middle mouse button",
+        "影响 Array、Spin、Mirror 的中心位置。": "Affects the center position for Array, Spin, and Mirror.",
+        "打开创建 / 功能菜单": "Open create / feature menu",
+        "Edit Mode 中打开重置和删除菜单": "Open the reset and delete menu in Edit Mode",
+        "轴向约束": "Axis constraint",
+        "平面约束": "Plane constraint",
+        "复制并移动": "Duplicate and move",
+        "鼠标中键": "middle mouse button",
+        "设置 Pivot 临时参考点": "Set the temporary Pivot reference point",
+        "设置 Array / Spin / Mirror 的操纵器 Pivot": "Set the Array / Spin / Mirror manipulator Pivot",
+        "X-Ray 显示切换": "Toggle X-Ray display",
+        "插件编辑状态下撤销": "Undo in plugin edit state",
+        "插件编辑状态下重做": "Redo in plugin edit state",
+        "缩放": "Scale"
+      };
 
-    <section class="section compact" id="overview">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="overview.eyebrow">功能概览</p>
-        <h2 data-i18n="overview.title">为绘画和设计准备透视参考</h2>
-      </div>
-      <div class="feature-grid">
-        <article>
-          <h3 data-i18n="feature.classic.title">经典透视</h3>
-          <p data-i18n="feature.classic.body">控制 VP_X / VP_Y / VP_Z、地平线、FOV 和 45° 辅助线，适合常规场景透视。</p>
-        </article>
-        <article>
-          <h3 data-i18n="feature.fisheye.title">鱼眼参考</h3>
-          <p data-i18n="feature.fisheye.body">支持等距鱼眼和球极鱼眼，用于广角、曲面空间和夸张镜头参考。</p>
-        </article>
-        <article>
-          <h3 data-i18n="feature.object.title">Object 结构</h3>
-          <p data-i18n="feature.object.body">创建 Quad、Circle、Cube、Cylinder、Sphere、Character，并用移动、旋转、缩放调整空间关系。</p>
-        </article>
-        <article>
-          <h3 data-i18n="feature.layer.title">写入图层</h3>
-          <p data-i18n="feature.layer.body">把当前透视辅助线、选中 Object 或所有可见 Object 写入 Photoshop 透明图层。</p>
-        </article>
-      </div>
-    </section>
+      const originalText = new WeakMap();
+      const textNodes = [];
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.nodeValue.trim()) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          const parent = node.parentElement;
+          if (!parent || parent.closest("script, style")) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      while (walker.nextNode()) {
+        textNodes.push(walker.currentNode);
+        originalText.set(walker.currentNode, walker.currentNode.nodeValue);
+      }
 
-    <section class="section split" id="install">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="install.eyebrow">Installation</p>
-        <h2 data-i18n="install.title">安装</h2>
-      </div>
-      <div class="content-card">
-        <ol>
-          <li data-i18n="install.step1">关闭 Photoshop。</li>
-          <li data-i18n="install.step2">运行 OP Perspective 安装程序。</li>
-          <li data-i18n="install.step3">选择目标 Photoshop 的 Plug-ins 文件夹或 Photoshop 安装目录。</li>
-          <li data-i18n="install.step4">安装完成后重新打开 Photoshop。</li>
-          <li data-i18n="install.step5">打开一个 Photoshop 文档，确认 OP Perspective 面板和 Overlay 正常出现。</li>
-        </ol>
-        <p class="note" data-i18n="install.note">
-          如果 Photoshop 启动时关闭或卡在启动画面，先安装或修复 Microsoft Visual C++ 2015-2022 Redistributable x64，然后重启 Windows 再测试。
-        </p>
-      </div>
-      <aside class="fact-card">
-        <h3 data-i18n="install.compat.title">兼容性</h3>
-        <p data-i18n="install.compat.body">安装包按 Photoshop 版本自动选择桥接模块。Photoshop Layer Pixel Writeback 需要 Photoshop 24.4 或更高版本。</p>
-      </aside>
-    </section>
+      function translateText(value) {
+        const trimmed = value.trim();
+        if (!trimmed) {
+          return value;
+        }
+        let replacement = translations[trimmed];
+        if (!replacement && trimmed.startsWith("视频待放：")) {
+          replacement = `Video: ${trimmed.slice("视频待放：".length)}`;
+        }
+        if (!replacement) {
+          return value;
+        }
+        return value.replace(trimmed, replacement);
+      }
 
-    <section class="section split" id="activate">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="activate.eyebrow">License</p>
-        <h2 data-i18n="activate.title">激活与试用</h2>
-      </div>
-      <div class="content-card">
-        <p data-i18n="activate.body">
-          未激活时，面板只显示邮箱、激活码和 14 天试用入口。激活或开始试用后，完整控制面板会显示。
-        </p>
-        <ol>
-          <li data-i18n="activate.step1">输入购买时使用的邮箱。</li>
-          <li data-i18n="activate.step2">输入激活码，然后点击激活。</li>
-          <li data-i18n="activate.step3">没有激活码时，可以输入邮箱并启动 14 天试用。</li>
-        </ol>
-      </div>
-      <aside class="fact-card">
-        <h3 data-i18n="activate.note.title">注意</h3>
-        <p data-i18n="activate.note.body">激活码不会显示在公开文档里。若需要重置授权或更换设备，请联系 BADBRUSH 支持。</p>
-      </aside>
-    </section>
+      function applyLanguage(language) {
+        document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+        document.title = language === "en"
+          ? "OP Perspective User Guide"
+          : "OP Perspective 使用说明";
+        for (const node of textNodes) {
+          const source = originalText.get(node) || node.nodeValue;
+          node.nodeValue = language === "en" ? translateText(source) : source;
+        }
+        for (const button of document.querySelectorAll("[data-language-choice]")) {
+          const active = button.dataset.languageChoice === language;
+          button.classList.toggle("is-active", active);
+          button.setAttribute("aria-pressed", String(active));
+        }
+        localStorage.setItem("opp-doc-language", language);
+      }
 
-    <section class="section" id="guide">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="guide.eyebrow">User Guide</p>
-        <h2 data-i18n="guide.title">使用指南</h2>
-      </div>
-      <div class="guide-list">
-        <article>
-          <h3 data-i18n="guide.panel.title">UI 面板</h3>
-          <p data-i18n="guide.panel.body">切换 Classic / Equidistant FishEye / Stereographic FishEye，控制透视线、Object、FOV、旋转视角、地平线和快捷键。</p>
-        </article>
-        <article>
-          <h3 data-i18n="guide.pie.title">OP Pie Menu</h3>
-          <p data-i18n="guide.pie.body">默认使用 Q 打开，用于创建 Object、进入 Edit Mode、切换结构相交线、控制 Object 显示和写入 Photoshop 图层。</p>
-        </article>
-        <article>
-          <h3 data-i18n="guide.object.title">Object 与 Edit Mode</h3>
-          <p data-i18n="guide.object.body">在 Edit Mode 中使用 G / R / S 移动、旋转、缩放，使用 X / Y / Z 约束轴向，使用 Shift+D 复制 Object。</p>
-        </article>
-        <article>
-          <h3 data-i18n="guide.writeback.title">写入 Photoshop 图层</h3>
-          <p data-i18n="guide.writeback.body">透视辅助线、选中 Object、所有可见 Object 都可以写入 Photoshop 透明图层。写入内容按当前 Overlay 可见结果生成。</p>
-        </article>
-        <article>
-          <h3 data-i18n="guide.blender.title">Blender 可选模块</h3>
-          <p data-i18n="guide.blender.body">安装可选 Blender add-on 后，可连接 OP Perspective、同步相机参考，并把 Blender Final Render 发送到 Photoshop 图层。</p>
-        </article>
-        <article>
-          <h3 data-i18n="guide.shortcuts.title">常用快捷键</h3>
-          <p><code>Q</code> OP Pie Menu · <code>G</code> Move · <code>R</code> Rotate · <code>S</code> Scale · <code>Alt+Z</code> X-Ray · <code>Ctrl+Z</code> Undo</p>
-        </article>
-      </div>
-    </section>
+      for (const button of document.querySelectorAll("[data-language-choice]")) {
+        button.addEventListener("click", () => {
+          applyLanguage(button.dataset.languageChoice === "en" ? "en" : "zh");
+        });
+      }
 
-    <section class="section split" id="updates">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="updates.eyebrow">Updates</p>
-        <h2 data-i18n="updates.title">更新</h2>
-      </div>
-      <div class="content-card">
-        <p data-i18n="updates.body">
-          有新版本时，控制面板标题栏会显示“可更新”。点击后可选择自动更新或手动下载来源。更新前请保存 Photoshop 文档。
-        </p>
-        <ul>
-          <li data-i18n="updates.item1">自动更新会下载并校验安装包，然后关闭并重启 Photoshop。</li>
-          <li data-i18n="updates.item2">手动下载可以打开 GitHub Release、BADBRUSH 官网或网盘备用链接。</li>
-          <li data-i18n="updates.item3">更新检查和授权状态彼此独立。</li>
-        </ul>
-      </div>
-      <aside class="fact-card">
-        <h3 data-i18n="updates.status.title">发布状态</h3>
-        <p data-i18n="updates.status.body">正式公开前，下载按钮可以先指向 GitHub Releases 页面；安装包上传后再更新链接。</p>
-      </aside>
-    </section>
-
-    <section class="section" id="download">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="download.eyebrow">Download</p>
-        <h2 data-i18n="download.title">下载与教程</h2>
-      </div>
-      <div class="download-grid">
-        <a class="download-card" href="https://github.com/xbadbrushx/OP-Perspective/releases" target="_blank" rel="noopener noreferrer">
-          <span data-i18n="download.github.label">GitHub Releases</span>
-          <strong data-i18n="download.github.title">安装包下载</strong>
-          <em data-i18n="download.github.note">正式发布后在这里获取最新安装包。</em>
-        </a>
-        <a class="download-card" href="https://www.bilibili.com/video/BV1gQVS6ZErd/" target="_blank" rel="noopener noreferrer">
-          <span data-i18n="download.video.label">Video Tutorial</span>
-          <strong data-i18n="download.video.title">B站视频教程</strong>
-          <em data-i18n="download.video.note">查看安装、面板、Object 和编辑操作演示。</em>
-        </a>
-        <a class="download-card" href="https://badbrush.org/" target="_blank" rel="noopener noreferrer">
-          <span data-i18n="download.badbrush.label">BADBRUSH</span>
-          <strong data-i18n="download.badbrush.title">官方网站</strong>
-          <em data-i18n="download.badbrush.note">产品信息、购买与支持入口。</em>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n="faq.eyebrow">FAQ</p>
-        <h2 data-i18n="faq.title">常见问题</h2>
-      </div>
-      <div class="faq">
-        <details open>
-          <summary data-i18n="faq.panel.q">关闭面板后怎么重新打开？</summary>
-          <p data-i18n="faq.panel.a">按 Ctrl+F12 可以重新打开 OP Perspective 面板。</p>
-        </details>
-        <details>
-          <summary data-i18n="faq.layer.q">写入 Photoshop 图层会修改原图吗？</summary>
-          <p data-i18n="faq.layer.a">不会。写入功能会创建新的透明图层，不会直接覆盖原始图层。</p>
-        </details>
-        <details>
-          <summary data-i18n="faq.ps.q">为什么 Photoshop 启动后自动关闭？</summary>
-          <p data-i18n="faq.ps.a">优先修复 Microsoft Visual C++ 2015-2022 Redistributable x64；如果仍失败，再记录 Windows 事件查看器中的错误模块并联系支持。</p>
-        </details>
-        <details>
-          <summary data-i18n="faq.license.q">试用期多久？</summary>
-          <p data-i18n="faq.license.a">OP Perspective 提供 14 天试用期。试用需要联网并绑定邮箱。</p>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>OP Perspective · BADBRUSH</p>
-    <p data-i18n="footer.note">此页面是公开用户文档，不包含源代码、授权实现或服务器内部信息。</p>
-  </footer>
-
-  <script src="assets/op-perspective.js"></script>
+      applyLanguage(localStorage.getItem("opp-doc-language") === "en" ? "en" : "zh");
+    })();
+</script>
 </body>
 </html>
