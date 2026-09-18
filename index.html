@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -327,6 +327,7 @@
       <a href="#07-intersections-xray">07 结构相交线与X-Ray穿透显示</a>
       <a href="#08-pivot-设置操纵器锚点">08 Pivot_设置操纵器锚点</a>
       <a href="#09-快捷键速查">09 快捷键速查</a>
+      <a href="#10-troubleshooting">10 问题排查 FAQ</a>
     </nav>
 
     <main>
@@ -707,12 +708,71 @@
           </tbody>
         </table>
       </div>
-      <p class="footer-note">Last updated: 2026-06-07</p>
+      <h2 id="10-troubleshooting">10 问题排查 FAQ</h2>
+      <p>先按错误编号找到对应条目，只执行该条目的步骤。退出代码 1 只表示失败，不代表某一种原因。旧版安装器没有错误编号时，请看“未知错误”。</p>
+      <p>图层像素写入模块安装失败不等于 OP Perspective 主程序安装失败；受影响的是写入 Photoshop 图层的功能。不要清空 Adobe 文件夹、修改注册数据库或反复卸载其他插件。</p>
+      <h3 id="op-uxp-upia">OP-UXP-UPIA · 找不到 Adobe 插件安装组件</h3>
+      <ol><li>从 Adobe 官方页面安装或修复 Creative Cloud Desktop。</li><li>正常打开 Creative Cloud Desktop，确认 Photoshop 可被识别。保存工作并关闭 Photoshop 后，再运行 OP Perspective 安装器一次。</li></ol>
+      <p><a href="https://www.adobe.com/creativecloud/desktop-app.html">Adobe Creative Cloud Desktop</a></p>
+      <h3 id="op-uxp-version">OP-UXP-VERSION · 检测到未支持的插件版本</h3>
+      <p>安装器已停止，避免删除未知版本或意外降级。先核对是否正在使用旧安装包；如果已经是最新安装包，不要手动删除插件，请联系作者并提供报告编号。</p>
+      <h3 id="op-uxp-remove">OP-UXP-REMOVE · 旧版本注册未能移除</h3>
+      <p>保存工作并关闭 Photoshop，重新运行安装器一次。如果仍失败，停止反复安装并联系作者。多个 Photoshop 中出现同名插件不一定是冲突，不要自行清理其他版本或整个 Adobe 目录。</p>
+      <h3 id="op-uxp-package">OP-UXP-PACKAGE · 安装包内容不一致</h3>
+      <p>从官方发布页重新下载完整安装包，不要混用不同版本的辅助脚本和 CCX 文件。重新下载后仍报错，请将安装包版本和报告编号发给作者。</p>
+      <h3 id="op-uxp-access">OP-UXP-ACCESS · 文件访问被拒绝</h3>
+      <p>确认运行的是官方安装器并接受正常的管理员授权提示。查看安全软件的拦截记录；公司管理的电脑请联系管理员。不要关闭全部安全防护、取得整个 Adobe 目录的所有权或批量修改权限。</p>
+      <h3 id="op-uxp-path">OP-UXP-PATH · 安装目录存在重定向</h3>
+      <p>安装器无法安全清理重定向路径，已停止此操作。不要删除链接及其目标目录。请联系作者或管理员，说明是否使用了目录迁移、符号链接或企业配置。</p>
+      <h3 id="op-uxp-timeout">OP-UXP-TIMEOUT · Adobe 安装操作超时</h3>
+      <p>查看 Creative Cloud Desktop 是否正在安装或更新，等待其完成。保存工作、关闭 Photoshop 后再运行安装器一次；仍超时时，提供报告编号。超时本身不能证明是网络问题或版本冲突。</p>
+      <h3 id="op-uxp-adobe">OP-UXP-ADOBE · Adobe 安装组件返回失败</h3>
+      <p>查看错误窗口中的 Stage 和 Adobe 原始错误。若 Adobe 明确提供了处理指示，按其指示操作；没有具体原因时不要猜测。保存工作、关闭 Photoshop 后可重试一次，仍失败请联系作者。</p>
+      <h3 id="op-uxp-registration">OP-UXP-REGISTRATION · 未确认插件注册成功</h3>
+      <p>Adobe 安装操作完成，但插件注册状态未通过检查，不能当作安装成功。确认所选 Photoshop 是需要安装的版本，并在 Creative Cloud Desktop 中检查 Photoshop 状态。不要手工修改 Adobe 注册文件；仍失败请提供报告编号。</p>
+      <h3 id="op-uxp-payload">OP-UXP-PAYLOAD · 插件文件缺失或内容不一致</h3>
+      <p>检查安全软件是否隔离了安装文件，从官方发布页重新下载完整安装包并重装一次。仅有用户级和系统级两个目录不等于安装失败；请保留日志供作者确认实际文件问题，不要自行清空目录。</p>
+      <h3 id="op-uxp-unknown">OP-UXP-UNKNOWN · 未知错误 / 只有退出代码 1</h3>
+      <p>当前证据不足以确定原因。记录完整错误窗口和发生时间，不要按猜测更改系统设置。旧版日志未记录安装原因时，需要用带安装诊断的新安装器复现；仅凭 Companion 或 Bridge 运行日志无法确定安装失败原因。</p>
+      <h3 id="support-report">仍未解决：联系作者</h3>
+      <p>联系购买时的作者渠道，提供：OP Perspective 安装包版本、Photoshop 版本、错误编号、报告编号、截图以及已经尝试的步骤。没有报告编号时，提供发生时间和完整错误提示即可。</p>
+      <p>新安装诊断会在错误窗口给出 Log 和 Report 路径。JSON 摘要不包含文档内容、激活码或令牌；完整日志可能包含本机路径和其他插件名称，请先检查后私下提供，不要直接贴到公开 GitHub Issue。此次本地生成报告不表示已经上传，也不表示作者已经收到。</p>
+      <p><a href="https://github.com/xBADBRUSHx/OP-Perspective/releases">官方发布页 / Official releases</a></p>
+      <p class="footer-note">Last updated: 2026-09-18</p>
     </main>
   </div>
   <script>
     (() => {
       const translations = {
+        "10 问题排查 FAQ": "10 Troubleshooting FAQ",
+        "先按错误编号找到对应条目，只执行该条目的步骤。退出代码 1 只表示失败，不代表某一种原因。旧版安装器没有错误编号时，请看“未知错误”。": "Find the entry matching your error code and follow only its steps. Exit code 1 means failure, not a specific cause. For older installers without an error code, see Unknown error.",
+        "图层像素写入模块安装失败不等于 OP Perspective 主程序安装失败；受影响的是写入 Photoshop 图层的功能。不要清空 Adobe 文件夹、修改注册数据库或反复卸载其他插件。": "A Layer Pixel Writeback installation failure does not mean the base OP Perspective installation failed; writing Photoshop layers is affected. Do not clear Adobe folders, edit registration databases or repeatedly uninstall other plugins.",
+        "OP-UXP-UPIA · 找不到 Adobe 插件安装组件": "OP-UXP-UPIA · Adobe plugin installer not found",
+        "从 Adobe 官方页面安装或修复 Creative Cloud Desktop。": "Install or repair Creative Cloud Desktop using Adobe's official page.",
+        "正常打开 Creative Cloud Desktop，确认 Photoshop 可被识别。保存工作并关闭 Photoshop 后，再运行 OP Perspective 安装器一次。": "Open Creative Cloud Desktop and check that it recognizes Photoshop. Save your work, close Photoshop and run the OP Perspective installer once more.",
+        "OP-UXP-VERSION · 检测到未支持的插件版本": "OP-UXP-VERSION · Unsupported installed plugin version",
+        "安装器已停止，避免删除未知版本或意外降级。先核对是否正在使用旧安装包；如果已经是最新安装包，不要手动删除插件，请联系作者并提供报告编号。": "Installation stopped to avoid removing an unknown version or downgrading it. Check whether your installer is outdated. If you already have the latest installer, contact the author with the report ID instead of deleting the plugin manually.",
+        "OP-UXP-REMOVE · 旧版本注册未能移除": "OP-UXP-REMOVE · Old registration could not be removed",
+        "保存工作并关闭 Photoshop，重新运行安装器一次。如果仍失败，停止反复安装并联系作者。多个 Photoshop 中出现同名插件不一定是冲突，不要自行清理其他版本或整个 Adobe 目录。": "Save your work, close Photoshop and run the installer once more. If it still fails, stop retrying and contact the author. The same plugin listed under multiple Photoshop hosts is not necessarily a conflict; do not clear other versions or the Adobe directory.",
+        "OP-UXP-PACKAGE · 安装包内容不一致": "OP-UXP-PACKAGE · Package content mismatch",
+        "从官方发布页重新下载完整安装包，不要混用不同版本的辅助脚本和 CCX 文件。重新下载后仍报错，请将安装包版本和报告编号发给作者。": "Download the complete installer again from the official releases page. Do not mix helper scripts and CCX files from different versions. If it still fails, send the installer version and report ID to the author.",
+        "OP-UXP-ACCESS · 文件访问被拒绝": "OP-UXP-ACCESS · File access denied",
+        "确认运行的是官方安装器并接受正常的管理员授权提示。查看安全软件的拦截记录；公司管理的电脑请联系管理员。不要关闭全部安全防护、取得整个 Adobe 目录的所有权或批量修改权限。": "Use the official installer and accept its normal administrator prompt. Check security software's blocking history; on a managed computer, contact your administrator. Do not disable all security, take ownership of the Adobe directory or change permissions in bulk.",
+        "OP-UXP-PATH · 安装目录存在重定向": "OP-UXP-PATH · Redirected installation path",
+        "安装器无法安全清理重定向路径，已停止此操作。不要删除链接及其目标目录。请联系作者或管理员，说明是否使用了目录迁移、符号链接或企业配置。": "The installer stopped because it cannot safely clean a redirected path. Do not delete the link or its target. Contact the author or administrator and mention any relocated folders, symbolic links or enterprise configuration.",
+        "OP-UXP-TIMEOUT · Adobe 安装操作超时": "OP-UXP-TIMEOUT · Adobe operation timed out",
+        "查看 Creative Cloud Desktop 是否正在安装或更新，等待其完成。保存工作、关闭 Photoshop 后再运行安装器一次；仍超时时，提供报告编号。超时本身不能证明是网络问题或版本冲突。": "Check whether Creative Cloud Desktop is installing or updating, and let it finish. Save your work, close Photoshop and retry once. If it still times out, provide the report ID. A timeout alone does not prove a network issue or version conflict.",
+        "OP-UXP-ADOBE · Adobe 安装组件返回失败": "OP-UXP-ADOBE · Adobe installer reported failure",
+        "查看错误窗口中的 Stage 和 Adobe 原始错误。若 Adobe 明确提供了处理指示，按其指示操作；没有具体原因时不要猜测。保存工作、关闭 Photoshop 后可重试一次，仍失败请联系作者。": "Read the Stage and original Adobe error in the dialog. Follow any explicit Adobe instructions; do not guess when no specific cause is provided. Save your work, close Photoshop and retry once. Contact the author if it still fails.",
+        "OP-UXP-REGISTRATION · 未确认插件注册成功": "OP-UXP-REGISTRATION · Registration not verified",
+        "Adobe 安装操作完成，但插件注册状态未通过检查，不能当作安装成功。确认所选 Photoshop 是需要安装的版本，并在 Creative Cloud Desktop 中检查 Photoshop 状态。不要手工修改 Adobe 注册文件；仍失败请提供报告编号。": "The Adobe operation completed, but registration verification failed, so installation is not confirmed. Check your selected Photoshop version and its status in Creative Cloud Desktop. Do not edit Adobe registration files. If it still fails, provide the report ID.",
+        "OP-UXP-PAYLOAD · 插件文件缺失或内容不一致": "OP-UXP-PAYLOAD · Missing or mismatched plugin files",
+        "检查安全软件是否隔离了安装文件，从官方发布页重新下载完整安装包并重装一次。仅有用户级和系统级两个目录不等于安装失败；请保留日志供作者确认实际文件问题，不要自行清空目录。": "Check whether security software quarantined files. Download the complete official installer again and reinstall once. User and system folders coexisting does not by itself mean failure. Keep the log for the author; do not clear these folders manually.",
+        "OP-UXP-UNKNOWN · 未知错误 / 只有退出代码 1": "OP-UXP-UNKNOWN · Unknown error / exit code 1 only",
+        "当前证据不足以确定原因。记录完整错误窗口和发生时间，不要按猜测更改系统设置。旧版日志未记录安装原因时，需要用带安装诊断的新安装器复现；仅凭 Companion 或 Bridge 运行日志无法确定安装失败原因。": "There is not enough evidence to identify the cause. Capture the entire error dialog and time; do not change system settings based on guesses. If an older installer did not log the cause, reproduce with a diagnostic-enabled installer. Companion or Bridge runtime logs alone cannot establish an installation failure cause.",
+        "仍未解决：联系作者": "Still unresolved: contact the author",
+        "联系购买时的作者渠道，提供：OP Perspective 安装包版本、Photoshop 版本、错误编号、报告编号、截图以及已经尝试的步骤。没有报告编号时，提供发生时间和完整错误提示即可。": "Contact the author through your purchase/support channel with the installer version, Photoshop version, error code, report ID, screenshot and steps already attempted. If no report ID exists, provide the time and full error message.",
+        "新安装诊断会在错误窗口给出 Log 和 Report 路径。JSON 摘要不包含文档内容、激活码或令牌；完整日志可能包含本机路径和其他插件名称，请先检查后私下提供，不要直接贴到公开 GitHub Issue。此次本地生成报告不表示已经上传，也不表示作者已经收到。": "New installation diagnostics show Log and Report paths in the dialog. The JSON summary excludes document contents, activation codes and tokens. Full logs may include local paths and other plugin names: review them before sharing privately, not in a public GitHub Issue. Creating a local report does not mean it was uploaded or received by the author.",
         "OP Perspective 使用说明": "OP Perspective User Guide",
         "使用说明书": "User Guide",
         "中文": "中文",
